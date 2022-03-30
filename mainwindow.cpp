@@ -10,10 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
   , trayIcon(new QSystemTrayIcon(this))
 {
 
-    // App icon
-  auto appIcon = QIcon(":/icons/heart.png");
-  this->trayIcon->setIcon(appIcon);
-  this->setWindowIcon(appIcon);
+  // App icon
+  this->trayIcon->setIcon(QIcon::fromTheme("audio-volume-high"));
 
   // Displaying the tray icon
   this->trayIcon->show();     // Note: without explicitly calling show(), QSystemTrayIcon::activated signal will never be emitted!
