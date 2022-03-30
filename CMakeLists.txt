@@ -1,22 +1,32 @@
-cmake_minimum_required (VERSION 2.8.12)
-project (pavutray)
+cmake_minimum_required (VERSION 3.8.2)
+project(pavutray)
 
-find_package (Qt5Widgets)
+# Find includes in the build directories
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set (trayLib_src ${PROJECT_SOURCE_DIR}/mainwindow.cpp)
-set (trayLib_hdr ${PROJECT_SOURCE_DIR}/mainwindow.h)
-set (trayBin_src ${PROJECT_SOURCE_DIR}/main.cpp)
+# Turn on automatic invocation of the MOC, UIC & RCC
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
 
-qt5_wrap_cpp(trayLib_hdr_moc ${trayLib_hdr})
+# There may be a way to tell up front if Qt5 is going to be found, but I haven't found
+# a foolproof way to do it yet, so settle for the default error message for now.
+#if(NOT CMAKE_PREFIX_PATH AND NOT Qt5Widgets_DIR)
+#    message(WARNING "CMAKE_PREFIX_PATH is not defined, so find_package may not work. Set the CMAKE_PREFIX_PATH "
+#            "environment variable to the install prefix of Qt 5, either on the command line as "
+#            "-DCMAKE_PREFIX_PATH=\"path/to/Qt5/lib/cmake\" or with set(CMAKE_PREFIX_PATH path/to/Qt5/lib/cmake)")
+#endif(NOT CMAKE_PREFIX_PATH AND NOT Qt5Widgets_DIR)
 
-include_directories (${PROJECT_SOURCE_DIR})
-include_directories (${PROJECT_BINARY_DIR})
+# Add a compiler flag
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-add_library (trayLib SHARED 
-    ${trayLib_src}
-    ${trayLib_hdr_moc}
-)
-target_link_libraries (traysLib Qt5::Widgets)
+# Find the QtWidgets library
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
 
-add_executable(pavutray ${trayBin_src})
-target_link_libraries (pavutray trayLib)
+# Tell CMake to create the executable
+add_executable(pavutray main.cpp mainwindow.cpp)
+
+# Add the Qt5 Widgets for linking
+target_link_libraries(pavutray Qt5::Widgets)
+
+install(TARGETS pavutray RUNTIME DESTINATION bin)
