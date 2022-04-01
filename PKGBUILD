@@ -9,7 +9,6 @@ source=("$pkgname::git+$url.git")
 sha512sums=('SKIP')
 
 build() {
-	cd "$pkgname"
 	mkdir -p ../build
 	cd ../build
 	cmake .. -DCMAKE_INSTALL_PREFIX=/usr
@@ -19,4 +18,4 @@ build() {
 package() {
 	cd ../build
 	make DESTDIR="$pkgdir" install
-}
+}	
