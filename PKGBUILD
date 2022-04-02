@@ -4,9 +4,6 @@ pkgrel=1
 arch=("x86_64")
 makedepends=("cmake")
 depends=("qt5-base")
-url="https://github.com/git-fal7/$pkgname"
-source=("$pkgname::git+$url.git")
-sha512sums=('SKIP')
 
 build() {
 	mkdir -p ../build
