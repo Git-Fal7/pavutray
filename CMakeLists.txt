@@ -23,3 +23,4 @@ add_executable(${PROJECT} main.cpp mainwindow.cpp)
 target_link_libraries(${PROJECT} Qt5::Widgets)
 
 install(TARGETS ${PROJECT} RUNTIME DESTINATION bin)
+install(FILES "autostart/qt5-polkit-agent.desktop" DESTINATION "/etc/xdg/autostart")
