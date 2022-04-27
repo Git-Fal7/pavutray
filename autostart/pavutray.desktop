@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Exec=pavutray
+TryExec=pavutray
+
+Name=Pavucontrol-qt tray
